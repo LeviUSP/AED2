@@ -77,6 +77,7 @@ bool ehBiconexo(GRAFO* g, char* arestaCritica){
         VERTICE v = g->A[i];
         if (v.min >= v.ordem){
             arestaCritica = acharArestaCritica(g, v);
+            return false;
         }; 
     }
 
