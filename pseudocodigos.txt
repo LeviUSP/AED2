@@ -1,0 +1,53 @@
+//Os coiso que o Xavier faz, a gente anota aqui
+
+DFST(G){
+    para todo x E V.G{
+        x.pai = 0
+        x.cor = branco
+        x.minor = numeroDeVertices
+        x.ordem = 0
+    }
+    ord = 0
+    seja v um vértice de V.G
+    v.cor = cinza
+    v.ordem = ++ord
+    DFS1(G, v)
+    
+    se (ord != n) {
+        imprime(não é conexo)
+        return false
+    }
+
+    v.minor = v.ordem
+    DFS2(G,v)
+    para todo x E V.G{
+        se ((x != v) && (x.ordem = x.minor)) return false
+    }
+    return true
+
+}
+    
+
+DFS1(G,y){
+    para todo y E Adj(y){
+        se(u.cor == branco){
+            u.cor = cinza
+            u.ordem = u.minor = ++ord
+            u.pai = y
+            DFS1(G,y)
+        }
+    }
+}
+
+DFS2(G, z){
+    para todo u E Adj(z){
+        se (u.pai == z){
+            DFS2(G,u)
+        }
+    }
+    para todo u E Adj(z){
+        se ((u != z.pai) && u.minor < z.minor){
+            z.minor = u.minor
+        }
+    }
+}
