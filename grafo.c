@@ -3,6 +3,7 @@
 
 #define MAX 100
 
+//I started to cry
 typedef struct adj{
     int numeroDoVertice;
     int pesoDaAresta;
