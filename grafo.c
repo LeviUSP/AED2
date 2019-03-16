@@ -21,11 +21,11 @@ typedef struct vertice{
 
 typedef struct{
     int vertices;
-    VERTICE A[MAX];//array de vertices
+    VERTICE A[MAX+1];//array de vertices
 }GRAFO;
 
 void resetarGrafo (GRAFO* g){
-    for(int i = 0; i < g->vertices; i++){
+    for(int i = 1; i <= g->vertices; i++){
         VERTICE v = g->A[i];
         v.cor = -1;
         v.pai = -1;
@@ -52,39 +52,38 @@ void buscaBiconexo(GRAFO* g, VERTICE v, int* contador){
     v.cor = 2;
 };
 
+char* acharArestaCritica(GRAFO* g, int v){
+    NO* p = v.cab;
+};
+
+
 bool ehBiconexo(GRAFO* g, char* arestaCritica){
     int vertices = g->vertices;
-    
-    
-    int cor[vertices];// 0-cinza e 1-preto
-    int pai[vertices];
-    int caminho[vertices];
-    int min[vertices];
     int contador = 1;
-
 
     resetarGrafo(g, cor, pai);
 
-    int v = 0;
-    cor[v] = 0;
-    caminho[v] = contador; 
-    buscaBiconexo(g, v, cor, pai, caminho, min, contador);
+    VERTICE v = g->A[1];
+    v.cor = 0;
+    v.caminho = contador; 
+    buscaBiconexo(g, v, &contador);
 
-    int j = 0;
-    for (int i = 0; i < vertices; i++){
-        if(cor[i]==1 || (caminho[i] != 1 && min[i] >= caminho[i])){ 
-            arestaCritica = acharArestaCritica(g, i);
-            return false;
-        }
-        j++;
+    if (contador < vertices){ 
+        printf ("NAO EH CONEXO");
+        return false;
+    };
+
+    //o primeiro elemento sempre terá o minimo e ordem iguais
+    for (int i = 2; i <= vertices; i++){
+        VERTICE v = g->A[i];
+        if (v.min >= v.ordem){
+            arestaCritica = acharArestaCritica(g, v);
+        }; 
     }
 
     return true;
 };
 
-char* acharArestaCritica(GRAFO* g, int v){
-
-};
 
 
 
