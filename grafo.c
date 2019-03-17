@@ -23,6 +23,8 @@ typedef struct{
     VERTICE A[MAX+1];//array de vertices
 }GRAFO;
 
+void inicializarGrafo(GRAFO* g);
+
 void resetarGrafo (GRAFO* g){
     for(int i = 1; i <= g->vertices; i++){
         VERTICE v = g->A[i];
