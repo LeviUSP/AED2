@@ -1,5 +1,25 @@
 //Os coiso que o Xavier faz, a gente anota aqui
 
+
+//Com o DFST a gente acha uma árvor
+
+
+
+/*
+    Como determinar se um grafo é biconexo:
+        Visitar todos os vertices e determinar a ordem a qual cada um foi visitado
+        Na volta, determinar o menor dos valores de cada vértice em relação aos seus adjacentes
+            exceto com o seu pai
+
+        Se a ordem de um vértice for igual ou maior que o seu mínimo, exceto o primeiro vértice,
+            quer dizer que é um grafo não biconexo
+
+        Para achar a aresta crítica, do(s) vértice(s) encontrado(s) percorre todos os adjacentes
+            e o vértice que não tiver o mesmo valor de mínimo, é uma aresta crítica.s
+
+
+*/
+
 DFST(G){
     para todo x E V.G{
         x.pai = 0
@@ -51,3 +71,4 @@ DFS2(G, z){
         }
     }
 }
+
