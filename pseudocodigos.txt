@@ -20,9 +20,12 @@
 
         Se tiver um vértice em que o menor do filho for igual a ordem em que foi visitado,
             esse vértice é crítico.
-        
+*/
 
-
+/*
+    Enumerar o grafo para que sejam do maior até o menor até o final:
+        Comparação: se o minimo do filho é menor ou igual ao menor do pai, coloca o vértice a direita
+        Fazer uma segunda lista com essas comparações e enumerá-la depois       
 */
 
 DFST(G){
