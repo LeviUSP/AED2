@@ -14,7 +14,7 @@ typedef struct vertice{
     int ordem;
     int min;
 
-    struct vertice pai;
+    struct vertice* pai;
     NO* cab;
 }VERTICE;
 
@@ -30,31 +30,28 @@ void inicializarGrafo(GRAFO* g){
 }
 
 void resetarGrafo (GRAFO* g){
-    for(int i = 1; i <= g->vertices; i++){
-        VERTICE v = g->A[i];
-        v.cor = -1;
-        v.pai = -1;
-    };
+    for(int i = 1; i <= g->vertices; i++)
+        g->A[i].cor = g->A[i].pai = -1;
 }
 
-void buscaBiconexo(GRAFO* g, VERTICE v, int* contador){
-    v.min = v.ordem;
-    NO* p = v.cab;
+void buscaBiconexo(GRAFO* g, VERTICE* v, int* contador){
+    v->min = v->ordem;
+    NO* p = v->cab;
     while(p){
-        VERTICE u = g->A[p->numeroDoVertice];
-        if(u.cor == -1){
-            u.cor = 0;
-            u.pai = v;
-            u.ordem = ++(*contador);
+        VERTICE* u = &(g->A[p->numeroDoVertice]);
+        if(u->cor == -1){
+            u->cor = 0;
+            u->pai = v;
+            u->ordem = ++(*contador);
             
             buscaBiconexo(g, u, contador);
         };
 
-        if (v.min > u.min && (&u) != v.pai) 
-            v.min = u.min;
+        if (v->min > u->min && u != v->pai) 
+            v->min = u->min;
         p = p->prox;
     }
-    v.cor = 2;
+    v->cor = 2;
 };
 
 char* acharArestaCritica(GRAFO* g, VERTICE v){
@@ -71,7 +68,7 @@ bool ehBiconexo(GRAFO* g, char* arestaCritica){
     VERTICE v = g->A[1];
     v.cor = 0;
     v.ordem = contador; 
-    buscaBiconexo(g, v, &contador);
+    buscaBiconexo(g, &v, &contador);
 
     if (contador < vertices){ 
         printf ("NAO EH CONEXO");
