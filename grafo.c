@@ -10,7 +10,9 @@ typedef struct adj{
 }NO;
 
 typedef struct vertice{
-    int cor;
+    int numero;
+
+    char cor; //b é branco, c é cinza e p é preto
     int ordem;
     int min;
 
@@ -23,10 +25,20 @@ typedef struct{
     VERTICE A[MAX+1];//array de vertices
 }GRAFO;
 
-void resetarGrafo (GRAFO* g){
-    for(int i = 1; i <= g->vertices; i++)
-        g->A[i].cor = g->A[i].pai = -1;
+GRAFO* criarGrafo(int numerodeVertices){
+    GRAFO* gr = (GRAFO*) malloc (sizeof(GRAFO));
+    gr->vertices = numerodeVertices;
+
+    for(int i = 1; i <= numerodeVertices; i++)
+        gr->A[i].numero = i;
+
+    return gr;
 }
+
+void adicionarAresta(GRAFO* g, int v, int u){
+
+}
+
 
 void buscaBiconexo(GRAFO* g, VERTICE* v, int* contador){
     v->min = v->ordem;
@@ -34,7 +46,7 @@ void buscaBiconexo(GRAFO* g, VERTICE* v, int* contador){
     while(p){
         VERTICE* u = &(g->A[p->numeroDoVertice]);
         if(u->cor == -1){
-            u->cor = 0;
+            u->cor = 'c';
             u->pai = v;
             u->ordem = ++(*contador);
             
@@ -45,20 +57,32 @@ void buscaBiconexo(GRAFO* g, VERTICE* v, int* contador){
             v->min = u->min;
         p = p->prox;
     }
-    v->cor = 2;
+    v->cor = 'p';
 };
+
 
 
 bool ehBiconexo(GRAFO* g, char* arestaCritica){
     int vertices = g->vertices;
     int contador = 1;
 
-    resetarGrafo(g);
 
-    VERTICE v = g->A[1];
-    v.cor = 0;
-    v.ordem = contador; 
-    buscaBiconexo(g, &v, &contador);
+    //resetar grafo
+    for(int i = 1; i <= g->vertices; i++){
+        VERTICE* atual = &(g->A[i]);
+        
+        atual->cor = 'b';
+        atual->pai = NULL;
+        atual->min = 0;
+        atual->ordem = 0;
+    }
+
+
+    VERTICE* v = &(g->A[1]);
+    v->cor = 'c';
+    v->ordem = contador; 
+    buscaBiconexo(g, v, &contador);
+    v->cor = 'p';
 
     if (contador < vertices){ 
         printf ("NAO EH CONEXO");
@@ -70,7 +94,7 @@ bool ehBiconexo(GRAFO* g, char* arestaCritica){
     for (int i = 2; i <= vertices; i++){
         VERTICE v = g->A[i];
         if (v.min >= v.ordem){
-            arestaCritica[j] = i + '-' + g->A[i].pai;
+            arestaCritica[j] = i + '-' + v.pai->numero;
             j++;
         }; 
     }
