@@ -23,12 +23,6 @@ typedef struct{
     VERTICE A[MAX+1];//array de vertices
 }GRAFO;
 
-void inicializarGrafo(GRAFO* g){
-    for(int i = 0; i <= g->vertices; i++){
-
-    }
-}
-
 void resetarGrafo (GRAFO* g){
     for(int i = 1; i <= g->vertices; i++)
         g->A[i].cor = g->A[i].pai = -1;
@@ -54,10 +48,6 @@ void buscaBiconexo(GRAFO* g, VERTICE* v, int* contador){
     v->cor = 2;
 };
 
-char* acharArestaCritica(GRAFO* g, VERTICE v){
-    NO* p = v.cab;
-};
-
 
 bool ehBiconexo(GRAFO* g, char* arestaCritica){
     int vertices = g->vertices;
@@ -75,12 +65,13 @@ bool ehBiconexo(GRAFO* g, char* arestaCritica){
         return false;
     };
 
+    int j = 0;
     //o primeiro elemento sempre terá o minimo e ordem iguais
     for (int i = 2; i <= vertices; i++){
         VERTICE v = g->A[i];
         if (v.min >= v.ordem){
-            arestaCritica = acharArestaCritica(g, v);
-            return false;
+            arestaCritica[j] = i + '-' + g->A[i].pai;
+            j++;
         }; 
     }
 

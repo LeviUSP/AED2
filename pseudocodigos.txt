@@ -23,6 +23,7 @@
 */
 
 /*
+    ST-Numeração
     Enumerar o grafo para que sejam do maior até o menor até o final:
         Comparação: se o minimo do filho é menor ou igual ao menor do pai, coloca o vértice a direita
         Fazer uma segunda lista com essas comparações e enumerá-la depois       

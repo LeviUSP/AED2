@@ -1,0 +1,5 @@
+PASSOS:
+
+1) Descrição do que é grafo, vértice e aresta
+2) Definição de Conexo e Biconexo
+3) 
