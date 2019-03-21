@@ -30,7 +30,7 @@
 
 
     Utilidade para ST-Numeração
-        
+        Algoritmo de Booth and Lueker
 */
 
 DFST(G){
