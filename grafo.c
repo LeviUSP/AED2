@@ -79,11 +79,6 @@ bool ehBiconexo(GRAFO* g, char* arestaCritica){
 };
 
 
-
-
-
-
-
 int main(){
     return 0;
 }
