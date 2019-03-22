@@ -6,12 +6,10 @@
 
 typedef struct adj{
     int numeroDoVertice;
-    int pesoDaAresta;
     struct adj* prox;
 }NO;
 
 typedef struct vertice{
-    int numero;
 
     char cor; //b é branco, c é cinza e p é preto
     int ordem;
@@ -30,14 +28,26 @@ GRAFO* criarGrafo(int numerodeVertices){
     GRAFO* gr = (GRAFO*) malloc(sizeof(GRAFO));
     gr->vertices = numerodeVertices;
 
-    for(int i = 1; i <= numerodeVertices; i++)
-        gr->A[i].numero = i;
-
     return gr;
 }
 
-void adicionarAresta(GRAFO* g, int v, int u){
+void adicionarAdjacencia(GRAFO* g, int indice, int numeroDoNO){
+    NO* novo = (NO*) malloc(sizeof(NO));
+    novo->numeroDoVertice = numeroDoNO;
+    novo->prox = NULL;
 
+    NO* p = g->A[indice].cab;
+
+    while(p->prox) p = p->prox;
+
+    if (p) p->prox = novo;
+    else g->A[indice].cab = novo;
+    
+}
+
+void adicionarAresta(GRAFO* g, int v, int u){
+    adicionarAdjacencia(g, v, u);
+    adicionarAdjacencia(g, u, v);
 }
 
 
@@ -56,7 +66,7 @@ void DFS(VERTICE* vertice, int v, int* contador){
             DFS(vertice, u, contador);
         };
 
-        if (vertice[v].min > vertice[u].min && u != v->pai) 
+        if (vertice[v].min > vertice[u].min && u != vertice[v].pai) 
             vertice[v].min = vertice[u].min;
 
         p = p->prox;
@@ -90,7 +100,7 @@ bool ehBiconexo(GRAFO* g, char* arestaCritica){
 
     DFS(vertice, v, &contador);
     
-    v.cor = 'p';
+    vertice[v].cor = 'p';
 
     if (contador < vertices){ 
         printf ("NAO EH CONEXO");
@@ -100,8 +110,8 @@ bool ehBiconexo(GRAFO* g, char* arestaCritica){
     int j = 0;
     //o primeiro elemento sempre terá o minimo e ordem iguais
     for (int i = 2; i <= vertices; i++){
-        if (vertice[v].min >= vertice[v].ordem){
-            arestaCritica[j] = i + '-' + v.pai;
+        if (vertice[i].min >= vertice[i].ordem){
+            arestaCritica[j] = i + '-' + vertice[i].pai;
             j++;
         }; 
     }
