@@ -76,7 +76,7 @@ void DFS(VERTICE* vertice, int v, int* contador){
 
 
 
-bool ehBiconexo(GRAFO* g, char* arestaCritica){
+bool ehBiconexo(GRAFO* g, char* arestaCritica, int* arestas){
     int vertices = g->vertices;
     int contador = 1;
 
@@ -107,12 +107,12 @@ bool ehBiconexo(GRAFO* g, char* arestaCritica){
         return false;
     };
 
-    int j = 0;
+    *arestas = 0;
     //o primeiro elemento sempre terá o minimo e ordem iguais
     for (int i = 2; i <= vertices; i++){
         if (vertice[i].min >= vertice[i].ordem){
-            arestaCritica[j] = i + '-' + vertice[i].pai;
-            j++;
+            arestaCritica[*arestas] = i + '-' + vertice[i].pai;
+            (*arestas)++;
         }; 
     }
 
@@ -121,5 +121,34 @@ bool ehBiconexo(GRAFO* g, char* arestaCritica){
 
 
 int main(){
+    GRAFO* gr = criarGrafo(12);
+    adicionarAresta(gr, 1, 2);
+    adicionarAresta(gr, 1, 3);
+    adicionarAresta(gr, 2, 4);
+    adicionarAresta(gr, 2, 5);
+    adicionarAresta(gr, 3, 5);
+    adicionarAresta(gr, 5, 6);
+    adicionarAresta(gr, 4, 6);
+    adicionarAresta(gr, 4, 7);
+    adicionarAresta(gr, 7, 8);
+    adicionarAresta(gr, 7, 9);
+    adicionarAresta(gr, 7, 12);
+    adicionarAresta(gr, 8, 9);
+    adicionarAresta(gr, 9, 10);
+    adicionarAresta(gr, 9, 11);
+    adicionarAresta(gr, 10, 11);
+    adicionarAresta(gr, 10, 12);
+
+    char arestaCritica[MAX];
+    int qntdeDeArestasCriticas;
+
+    if(ehBiconexo(gr, arestaCritica, &qntdeDeArestasCriticas)) {
+        printf ("EH BICONEXO");
+        printf ("As  arestas críticas são:");
+        for (int i = 0; i < qntdeDeArestasCriticas; i++)
+            printf(arestaCritica[i]);
+    }
+    
+
     return 0;
 }
