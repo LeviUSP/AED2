@@ -137,17 +137,17 @@ int main(){
 
     GRAFO* gr = criarGrafo(12);
     
-    printf("Funciona");
+    //printf("Funciona");
     adicionarAresta(gr, 1, 2);
-    // adicionarAresta(gr, 1, 3);
-    // adicionarAresta(gr, 2, 4);
-    // adicionarAresta(gr, 2, 5);
-    // adicionarAresta(gr, 3, 5);
-    // adicionarAresta(gr, 5, 6);
-    // adicionarAresta(gr, 4, 6);
-    // adicionarAresta(gr, 4, 7);
-    // adicionarAresta(gr, 7, 8);
-    // adicionarAresta(gr, 7, 9);
+    adicionarAresta(gr, 1, 3);
+    adicionarAresta(gr, 2, 4);
+    adicionarAresta(gr, 2, 5);
+    adicionarAresta(gr, 3, 5);
+    adicionarAresta(gr, 5, 6);
+    adicionarAresta(gr, 4, 6);
+    adicionarAresta(gr, 4, 7);
+    adicionarAresta(gr, 7, 8);
+    adicionarAresta(gr, 7, 9);
     // adicionarAresta(gr, 7, 12);
     // adicionarAresta(gr, 8, 9);
     // adicionarAresta(gr, 9, 10);
@@ -155,7 +155,7 @@ int main(){
     // adicionarAresta(gr, 10, 11);
     // adicionarAresta(gr, 10, 12);
 
-    // printf("Funciona");
+    printf("Funciona \n");
     // char arestaCritica[MAX];
     // int qntdeDeArestasCriticas;
 
