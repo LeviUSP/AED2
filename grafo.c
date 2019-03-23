@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <malloc.h>
+#include <string.h>
 
 #define MAX 100
 
@@ -21,14 +22,23 @@ typedef struct vertice{
 
 typedef struct{
     int vertices;
-    VERTICE A[MAX+1];//array de vertices
+    VERTICE* A;//array de vertices
 }GRAFO;
 
 GRAFO* criarGrafo(int numerodeVertices){
-    GRAFO* gr = (GRAFO*) malloc(sizeof(GRAFO));
-    gr->vertices = numerodeVertices;
-
-    return gr;
+    printf("Funciona");
+    GRAFO* g = (GRAFO*)malloc(sizeof(GRAFO));
+    g->vertices = numerodeVertices;
+    
+    g->A = (VERTICE*)malloc(numerodeVertices*sizeof(VERTICE));
+    for(int i=1; i<= numerodeVertices; i++){
+        g->A[i].cab = NULL;
+        g->A[i].cor = '-';
+        g->A[i].min= -1;
+        g->A[i].ordem = -1;
+        g->A[i].pai = -1;
+    }
+    return g;
 }
 
 void adicionarAdjacencia(GRAFO* g, int indice, int numeroDoNO){
@@ -37,8 +47,9 @@ void adicionarAdjacencia(GRAFO* g, int indice, int numeroDoNO){
     novo->prox = NULL;
 
     NO* p = g->A[indice].cab;
-
-    while(p->prox) p = p->prox;
+    
+ 
+    while(p && p->prox) p = p->prox;
 
     if (p) p->prox = novo;
     else g->A[indice].cab = novo;
@@ -46,6 +57,7 @@ void adicionarAdjacencia(GRAFO* g, int indice, int numeroDoNO){
 }
 
 void adicionarAresta(GRAFO* g, int v, int u){
+    printf("Funfa");
     adicionarAdjacencia(g, v, u);
     adicionarAdjacencia(g, u, v);
 }
@@ -76,7 +88,7 @@ void DFS(VERTICE* vertice, int v, int* contador){
 
 
 
-bool ehBiconexo(GRAFO* g, char* arestaCritica, int* arestas){
+bool ehBiconexo(GRAFO* g, char arestaCritica[], int* arestas){
     int vertices = g->vertices;
     int contador = 1;
 
@@ -121,33 +133,38 @@ bool ehBiconexo(GRAFO* g, char* arestaCritica, int* arestas){
 
 
 int main(){
+    printf("Funciona");
+
     GRAFO* gr = criarGrafo(12);
+    
+    printf("Funciona");
     adicionarAresta(gr, 1, 2);
-    adicionarAresta(gr, 1, 3);
-    adicionarAresta(gr, 2, 4);
-    adicionarAresta(gr, 2, 5);
-    adicionarAresta(gr, 3, 5);
-    adicionarAresta(gr, 5, 6);
-    adicionarAresta(gr, 4, 6);
-    adicionarAresta(gr, 4, 7);
-    adicionarAresta(gr, 7, 8);
-    adicionarAresta(gr, 7, 9);
-    adicionarAresta(gr, 7, 12);
-    adicionarAresta(gr, 8, 9);
-    adicionarAresta(gr, 9, 10);
-    adicionarAresta(gr, 9, 11);
-    adicionarAresta(gr, 10, 11);
-    adicionarAresta(gr, 10, 12);
+    // adicionarAresta(gr, 1, 3);
+    // adicionarAresta(gr, 2, 4);
+    // adicionarAresta(gr, 2, 5);
+    // adicionarAresta(gr, 3, 5);
+    // adicionarAresta(gr, 5, 6);
+    // adicionarAresta(gr, 4, 6);
+    // adicionarAresta(gr, 4, 7);
+    // adicionarAresta(gr, 7, 8);
+    // adicionarAresta(gr, 7, 9);
+    // adicionarAresta(gr, 7, 12);
+    // adicionarAresta(gr, 8, 9);
+    // adicionarAresta(gr, 9, 10);
+    // adicionarAresta(gr, 9, 11);
+    // adicionarAresta(gr, 10, 11);
+    // adicionarAresta(gr, 10, 12);
 
-    char arestaCritica[MAX];
-    int qntdeDeArestasCriticas;
+    // printf("Funciona");
+    // char arestaCritica[MAX];
+    // int qntdeDeArestasCriticas;
 
-    if(ehBiconexo(gr, arestaCritica, &qntdeDeArestasCriticas)) {
-        printf ("EH BICONEXO");
-        printf ("As  arestas críticas são:");
-        for (int i = 0; i < qntdeDeArestasCriticas; i++)
-            printf(arestaCritica[i]);
-    }
+    // if(ehBiconexo(gr, arestaCritica, &qntdeDeArestasCriticas)) {
+    //     printf ("EH BICONEXO");
+    //     printf ("As  arestas críticas são:");
+    //     // for (int i = 0; i < qntdeDeArestasCriticas; i++)
+    //     //     printf(arestaCritica[i]);
+    // }
     
 
     return 0;
