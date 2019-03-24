@@ -140,11 +140,11 @@ bool ehBiconexo(GRAFO* g, char arestaCritica[], int* cont){
         if (g->A[i].min >= g->A[i].ordem){
             arestaCritica[*cont] = '%i', i;
             (*cont)++;
-            arestaCritica[*cont] = ',';
+            arestaCritica[*cont] = '-';
             (*cont)++;
             arestaCritica[*cont] = '%i', g->A[i].pai;
             (*cont)++;
-            arestaCritica[*cont] = ' ';
+            arestaCritica[*cont] = ',';
         }; 
     }
 
