@@ -138,13 +138,14 @@ bool ehBiconexo(GRAFO* g, char arestaCritica[], int* cont){
     //o primeiro elemento sempre terá o minimo e ordem iguais
     for (int i = 2; i <= vertices; i++){
         if (g->A[i].min >= g->A[i].ordem){
-            arestaCritica[*cont] = '%i', i;
+            arestaCritica[*cont] = (char) i;
             (*cont)++;
             arestaCritica[*cont] = '-';
             (*cont)++;
-            arestaCritica[*cont] = '%i', g->A[i].pai;
+            arestaCritica[*cont] = (char) g->A[i].pai;
             (*cont)++;
             arestaCritica[*cont] = ',';
+            (*cont)++;
         }; 
     }
 
@@ -183,8 +184,11 @@ int main(){
     if(!ehBiconexo(gr, arestaCritica, &qntdeDeArestasCriticas)) {
         printf ("NAO EH BICONEXO\n");
         printf ("As  arestas críticas são:");
+
+
         for (int i = 0; i < qntdeDeArestasCriticas; i++)
             printf("%c", arestaCritica[i]);
+        
         printf("\n");
     }
     else printf("EH BICONEXO"); 
