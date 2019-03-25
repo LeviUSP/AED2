@@ -26,7 +26,7 @@ typedef struct{
 
 void printar(GRAFO* g){
     for(int i = 1; i <= g->vertices; i++){
-        printf("Vertice %i: ", g->A[i].numero);
+        printf("Vertice %i: ", i);
         printf(" (Cor: %c, Ordem: %i, Minimo: %i e Pai: %i)\n", 
                     g->A[i].cor, g->A[i].ordem, g->A[i].min, g->A[i].pai);
         NO* p = g->A[i].cab;
@@ -72,6 +72,7 @@ void adicionarAresta(GRAFO* g, int v, int u){
     adicionarAdjacencia(g, v, u);
     adicionarAdjacencia(g, u, v);
 }
+
 //busca por profundidade já recolocando os mínimos
 void DFS(GRAFO* g, int v, int* contador){
     g->A[v].min = g->A[v].ordem;
@@ -94,8 +95,6 @@ void DFS(GRAFO* g, int v, int* contador){
     }
     g->A[v].cor = 'p';
 };
-
-
 
 bool ehBiconexo(GRAFO* g, char arestaCritica[], int* cont){
     int vertices = g->vertices;
@@ -138,7 +137,6 @@ bool ehBiconexo(GRAFO* g, char arestaCritica[], int* cont){
     if ((*cont) != 0) return false; //se houver arestas críticas, não é biconexo
     return true;
 };
-
 
 int main(){
     char arestaCritica[MAX];
