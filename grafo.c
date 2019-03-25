@@ -3,7 +3,7 @@
 #include <malloc.h>
 #include <string.h>
 
-#define MAX 100
+#define MAX 20
 
 typedef struct adj{
     int numeroDoVertice;
@@ -28,14 +28,16 @@ typedef struct{
 
 void printar(GRAFO* g){
     for(int i = 1; i <= g->vertices; i++){
-        printf("Vertice %i tem adjacencia com", g->A[i].numero);
+        printf("Vertice %i: ", g->A[i].numero);
+        printf(" (Cor: %c, Ordem: %i, Minimo: %i e Pai: %i)\n", 
+                    g->A[i].cor, g->A[i].ordem, g->A[i].min, g->A[i].pai);
         NO* p = g->A[i].cab;
+        printf("   Adjacências: ");
         while(p){
             printf(" v%i", p->numeroDoVertice);
             p = p->prox;
         }
-        printf("\n    Cor: %c, Ordem: %i, Minimo: %i e Pai: %i", 
-                    g->A[i].cor, g->A[i].ordem, g->A[i].min, g->A[i].pai);
+        
         printf("\n\n");
     }
 }
@@ -73,8 +75,7 @@ void adicionarAdjacencia(GRAFO* g, int indice, int numeroDoNO){
     
 }
 
-void adicionarAresta(GRAFO* g, int v, int u){
-    
+void adicionarAresta(GRAFO* g, int v, int u){    
     adicionarAdjacencia(g, v, u);
     adicionarAdjacencia(g, u, v);
 }
@@ -138,14 +139,15 @@ bool ehBiconexo(GRAFO* g, char arestaCritica[], int* cont){
     //o primeiro elemento sempre terá o minimo e ordem iguais
     for (int i = 2; i <= vertices; i++){
         if (g->A[i].min >= g->A[i].ordem){
-            arestaCritica[*cont] = (char) i;
-            (*cont)++;
-            arestaCritica[*cont] = '-';
-            (*cont)++;
-            arestaCritica[*cont] = (char) g->A[i].pai;
-            (*cont)++;
-            arestaCritica[*cont] = ',';
-            (*cont)++;
+            arestaCritica[(*cont)] = 'v';
+            arestaCritica[++(*cont)] =  (g->A[i].pai % 10) + 0x30;
+            arestaCritica[++(*cont)] = '-';
+            arestaCritica[++(*cont)] = 'v';
+            arestaCritica[++(*cont)] =  (i % 10) + 0x30;
+            arestaCritica[++(*cont)] = ',';
+            
+            *cont = *cont +1;
+            
         }; 
     }
 
@@ -176,20 +178,18 @@ int main(){
     adicionarAresta(gr, 10, 11);
     adicionarAresta(gr, 10, 12);
 
-  
-
     char arestaCritica[MAX];
     int qntdeDeArestasCriticas;
 
     if(!ehBiconexo(gr, arestaCritica, &qntdeDeArestasCriticas)) {
         printf ("NAO EH BICONEXO\n");
-        printf ("As  arestas críticas são:");
+        printf ("A(s) aresta(s) crítica(s) é(são): ");
 
 
         for (int i = 0; i < qntdeDeArestasCriticas; i++)
             printf("%c", arestaCritica[i]);
         
-        printf("\n");
+        printf("\n\n");
     }
     else printf("EH BICONEXO"); 
 
