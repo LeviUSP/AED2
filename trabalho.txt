@@ -3,3 +3,44 @@ PASSOS:
 1) Descrição do que é grafo, vértice e aresta
 2) Definição de Conexo e Biconexo
 3) 
+
+Saída:
+
+Vertice 1:  (Cor: p, Ordem: 1, Minimo: 1 e Pai: 0)
+   Adjacências:  v2 v3
+
+Vertice 2:  (Cor: p, Ordem: 2, Minimo: 1 e Pai: 1)
+   Adjacências:  v1 v4 v5
+
+Vertice 3:  (Cor: p, Ordem: 6, Minimo: 1 e Pai: 5)
+   Adjacências:  v1 v5
+
+Vertice 4:  (Cor: p, Ordem: 3, Minimo: 1 e Pai: 2)
+   Adjacências:  v2 v6 v7
+
+Vertice 5:  (Cor: p, Ordem: 5, Minimo: 1 e Pai: 6)
+   Adjacências:  v2 v3 v6
+
+Vertice 6:  (Cor: p, Ordem: 4, Minimo: 1 e Pai: 4)
+   Adjacências:  v5 v4
+
+Vertice 7:  (Cor: p, Ordem: 7, Minimo: 7 e Pai: 4)
+   Adjacências:  v4 v8 v9 v12
+
+Vertice 8:  (Cor: p, Ordem: 8, Minimo: 7 e Pai: 7)
+   Adjacências:  v7 v9
+
+Vertice 9:  (Cor: p, Ordem: 9, Minimo: 7 e Pai: 8)
+   Adjacências:  v7 v8 v10 v11
+
+Vertice 10:  (Cor: p, Ordem: 10, Minimo: 7 e Pai: 9)
+   Adjacências:  v9 v11 v12
+
+Vertice 11:  (Cor: p, Ordem: 11, Minimo: 7 e Pai: 10)
+   Adjacências:  v9 v10
+
+Vertice 12:  (Cor: p, Ordem: 12, Minimo: 7 e Pai: 10)
+   Adjacências:  v7 v10
+
+NAO EH BICONEXO
+A(s) aresta(s) crítica(s) é(são): v4-v7,

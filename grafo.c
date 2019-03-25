@@ -10,7 +10,6 @@ typedef struct adj{
 }NO;
 
 typedef struct vertice{
-    int numero;
     char cor; //b é branco, c é cinza e p é preto
     int ordem;
     int min;
@@ -45,7 +44,6 @@ GRAFO* criarGrafo(int numerodeVertices){
     g->A = (VERTICE*)malloc((numerodeVertices+1)*sizeof(VERTICE));
     
     for(int i = 1; i <= numerodeVertices; i++){
-        g->A[i].numero = i;
         g->A[i].cab = NULL;
         g->A[i].cor = '-';
         g->A[i].min= -1;
