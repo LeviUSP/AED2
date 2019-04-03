@@ -1,13 +1,14 @@
 //Os coiso que o Xavier faz, a gente anota aqui
 
 
-//Com o DFST a gente acha uma árvor
+//Com o DFST a gente acha uma árvore geradora daquele grafo
 
 
 
 /*
     Como determinar se um grafo é biconexo:
         Visitar todos os vertices e determinar a ordem a qual cada um foi visitado
+        
         Na volta, determinar o menor dos valores de cada vértice em relação aos seus adjacentes
             exceto com o seu pai
 
@@ -31,6 +32,13 @@
 
     Utilidade para ST-Numeração
         Algoritmo de Booth and Lueker
+*/
+
+/*
+    Árvore Geradora do DFS:
+        é a árvore gerada com a marcação do pai a cada vértice percorrido na busca 
+
+    Faça um algoritmo que conte quantas componentes conexas existem
 */
 
 DFST(G){
