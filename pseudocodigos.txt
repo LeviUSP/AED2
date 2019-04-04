@@ -30,7 +30,7 @@
             do grafo
 
         Comparação: se o minimo do filho é menor ou igual ao menor do pai, coloca o vértice à 
-                    direita, senão à esquerda
+                    esquerda do pai, senão à direita do pai na lista duplamente ligada
         Fazer uma segunda lista com essas comparações e enumerá-la depois       
 
 
