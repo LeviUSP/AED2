@@ -1,7 +1,7 @@
 //Os coiso que o Xavier faz, a gente anota aqui
 
 
-//Com o DFST a gente acha uma árvor
+//Com o DFST a gente acha uma árvore
 
 
 

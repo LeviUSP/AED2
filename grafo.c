@@ -119,7 +119,7 @@ bool ehBiconexo(GRAFO* g, char arestaCritica[], int* cont){
     };
     *cont = 0;
     //verifica se tem mais de uma aresta crítica
-    for (int i = 2; i <= vertices; i++){ //como o primeiro vertice nunca será a aresta crítica, começa-se do segundo
+    for (int i = 2; i <= vertices; i++){ //primeiro vertice não contado
         if (g->A[i].min >= g->A[i].ordem){
             arestaCritica[(*cont)] = 'v';
             arestaCritica[++(*cont)] =  (g->A[i].pai % 10) + 0x30;
