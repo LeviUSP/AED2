@@ -1,100 +1,109 @@
 #include <stdio.h>
 #include <stdbool.h>
-
-#define MAX 100
+#include <malloc.h>
+#include <string.h>
+#define MAX 20
 
 typedef struct adj{
-    int numeroDoVertice;
-    int pesoDaAresta;
+    char nomeDoVertice;
     struct adj* prox;
 }NO;
 
 typedef struct vertice{
-    int cor;
+    char nomeDoVertice;
+
+    char cor; //b é branco, c é cinza e p é preto
     int ordem;
     int min;
-
-    struct vertice pai;
+    int pai;
+    
     NO* cab;
 }VERTICE;
 
 typedef struct{
     int vertices;
-    VERTICE A[MAX+1];//array de vertices
+    VERTICE* A;//array de vertices
 }GRAFO;
 
-void inicializarGrafo(GRAFO* g){
-
-}
-
-void resetarGrafo (GRAFO* g){
+void printar(GRAFO* g){
     for(int i = 1; i <= g->vertices; i++){
-        VERTICE v = g->A[i];
-        v.cor = -1;
-        v.pai = -1;
-    };
+        printf("Vertice %i: ", i);
+        printf(" (Cor: %c, Ordem: %i, Minimo: %i e Pai: %i)\n", 
+                    g->A[i].cor, g->A[i].ordem, g->A[i].min, g->A[i].pai);
+        NO* p = g->A[i].cab;
+        printf("   Adjacências: ");
+        while(p){
+            printf(" v%c", p->nomeDoVertice);
+            p = p->prox;
+        }        
+        printf("\n\n");
+    }
 }
 
-void buscaBiconexo(GRAFO* g, VERTICE* v, int* contador){
-    v->min = v->ordem;
-    NO* p = v.cab;
-    while(p){
-        VERTICE* u = g->A[p->numeroDoVertice];
-        if(u->cor == -1){
-            u->cor = 0;
-            u->pai = v;
-            u->ordem = ++(*contador);
-            
-            buscaBiconexo(g, u, contador);
-        };
+GRAFO* alocarGrafo(int numeroDeVertices){
+    GRAFO* g = (GRAFO*)malloc(sizeof(GRAFO));
+    g->vertices = numeroDeVertices;
+    g->A = (VERTICE*)malloc((numeroDeVertices)*sizeof(VERTICE));
+    
+    
+    return g;
+}
+//adiciona um nó na lista ligada do vertice indice
+void adicionarAdjacencia(GRAFO* g, int indice, char nomeDoNO){
+    NO* novo = (NO*) malloc(sizeof(NO));
+    novo->nomeDoVertice = nomeDoNO;
+    novo->prox = NULL;
 
-        if (v->min > u->min && u != v->pai) 
-            v->min = u->min;
-        p = p->prox;
+    NO* p = g->A[indice].cab;
+    while(p && p->prox) p = p->prox;
+
+    if (p) p->prox = novo;
+    else g->A[indice].cab = novo;
+    
+}
+//para adicionar aresta de um grafo não direcionado, precisa de ambas adjacencias
+void adicionarAresta(GRAFO* g, int v, int u){    
+    adicionarAdjacencia(g, v, u);
+    adicionarAdjacencia(g, u, v);
+}
+
+void inicializarPropriedadesDoVertice(GRAFO* g, char nomeDoVertice, int indice){
+    g->A[indice].nomeDoVertice = nomeDoVertice;
+    
+    g->A[indice].cab = NULL;
+    g->A[indice].cor = '-';
+    g->A[indice].min= -1;
+    g->A[indice].ordem = -1;
+    g->A[indice].pai = -1;
+}
+
+
+void inicializarGrafo() {
+    int numeroDeVertices;
+    char vertice, adjacencia;
+    
+    printf("Informe o número de vértices desse grafo:\n");
+    scanf("%i\n", &numeroDeVertices);
+
+
+    GRAFO* g = alocarGrafo(numeroDeVertices);
+
+    printf("Coloque o vértice e após  o \'|\' coloque todas as adjacências desse e quando acabar cada linha digitar \'/\' \n");
+    
+    for(int i = 0; i < g->vertices; i++){
+        scanf('%c', &vertice);
+        printf('|');
+        
+        inicializarPropriedadesDoVertice(g, vertice, i);
+        
+        scanf('%c', &adjacencia);
+        adicionarAdjacencia(g, i, adjacencia);
+        
+        while(adjacencia != '/'){
+            scanf('%c', &adjacencia);
+            adicionarAdjacencia(g, i, adjacencia);
+        }
+
+        printf('\n');
     }
-    v->cor = 2;//preto
-};
-
-char* acharArestaCritica(GRAFO* g, int v){
-    NO* p = v.cab;
-};
-
-
-bool ehBiconexo(GRAFO* g, char* arestaCritica){
-    int vertices = g->vertices;
-    int contador = 1;
-
-    resetarGrafo(g, cor, pai);
-
-    VERTICE v = g->A[1];
-    v.cor = 0;
-    v.caminho = contador; 
-    buscaBiconexo(g, &v, &contador);
-    v.cor = 2
-
-    if (contador < vertices){ 
-        printf ("NAO EH CONEXO");
-        return false;
-    };
-
-    //o primeiro elemento sempre terá o minimo e ordem iguais
-    for (int i = 2; i <= vertices; i++){
-        VERTICE v = g->A[i];
-        if (v.min >= v.ordem){
-            arestaCritica = acharArestaCritica(g, v);
-            return false;
-        }; 
-    }
-
-    return true;
-};
-
-
-
-
-
-
-
-int main(){
-    return 0;
 }
