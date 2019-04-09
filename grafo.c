@@ -5,7 +5,7 @@
 #define MAX 20
 
 typedef struct adj{
-    char nomeDoVertice;
+    int numeroDoVertice;
     struct adj* prox;
 }NO;
 
@@ -33,7 +33,7 @@ void printar(GRAFO* g){
         NO* p = g->A[i].cab;
         printf("   Adjacências: ");
         while(p){
-            printf(" v%c", p->nomeDoVertice);
+            printf(" v%c", p->numeroDoVertice);
             p = p->prox;
         }        
         printf("\n\n");
@@ -43,15 +43,15 @@ void printar(GRAFO* g){
 GRAFO* alocarGrafo(int numeroDeVertices){
     GRAFO* g = (GRAFO*)malloc(sizeof(GRAFO));
     g->vertices = numeroDeVertices;
-    g->A = (VERTICE*)malloc((numeroDeVertices)*sizeof(VERTICE));
+    g->A = (VERTICE*)malloc((numeroDeVertices+1)*sizeof(VERTICE));
     
     
     return g;
 }
 //adiciona um nó na lista ligada do vertice indice
-void adicionarAdjacencia(GRAFO* g, int indice, char nomeDoNO){
+void adicionarAdjacencia(GRAFO* g, int indice, int numeroDoNO){
     NO* novo = (NO*) malloc(sizeof(NO));
-    novo->nomeDoVertice = nomeDoNO;
+    novo->numeroDoVertice = numeroDoNO;
     novo->prox = NULL;
 
     NO* p = g->A[indice].cab;
@@ -81,29 +81,34 @@ void inicializarPropriedadesDoVertice(GRAFO* g, char nomeDoVertice, int indice){
 void inicializarGrafo() {
     int numeroDeVertices;
     char vertice, adjacencia;
-    
+
     printf("Informe o número de vértices desse grafo:\n");
     scanf("%i\n", &numeroDeVertices);
 
-
     GRAFO* g = alocarGrafo(numeroDeVertices);
 
-    printf("Coloque o vértice e após  o \'|\' coloque todas as adjacências desse e quando acabar cada linha digitar \'/\' \n");
+  
     
-    for(int i = 0; i < g->vertices; i++){
-        scanf('%c', &vertice);
-        printf('|');
+    for(int i = 1; i <= g->vertices; i++){
+        scanf("%c|", &vertice);
+        
         
         inicializarPropriedadesDoVertice(g, vertice, i);
         
-        scanf('%c', &adjacencia);
+        scanf("%c", &adjacencia);
         adicionarAdjacencia(g, i, adjacencia);
         
         while(adjacencia != '/'){
-            scanf('%c', &adjacencia);
+            scanf("%c", &adjacencia);
             adicionarAdjacencia(g, i, adjacencia);
         }
 
-        printf('\n');
+        
     }
+}
+
+int main(){
+    inicializarGrafo();
+
+    return 0;
 }
